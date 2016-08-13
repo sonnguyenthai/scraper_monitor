@@ -1,0 +1,81 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}pinax-project-account{% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block body_base %}
+    <section class="jumbotron">
+        <div class="container">
+            {% include "_messages.html" %}
+            <h1>{% blocktrans %}Welcome to<br>Scraper Monitor{% endblocktrans %}</h1>
+            <p>
+                {% blocktrans %}
+                Here is the list of all your scrapers and their status. You can go to <strong>Admin Panel</strong> to
+                    add/edit/remove them.
+                {% endblocktrans %}
+            </p>
+            {% if not user.is_authenticated %}
+            {% url "account_login" as login_url %}
+            {% url "account_signup" as signup_url %}
+            <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn btn-default">Log In</a> or <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> to try out the site.{% endblocktrans %}</p>
+            {% endif %}
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><strong>MongoURI:</strong> {{ mongo_url }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><strong>Mongo DB:</strong> {{ mongo_db }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><strong>Mongo DB Collection:</strong> {{ mongo_col }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><strong>Items number:</strong> {{ items_number }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><strong>Images number:</strong> {{ images_number }}</div>
+            </div>
+            <br />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Scraper Name</th>
+                        <th>Webservice Endpoint</th>
+                        <th>Created Time</th>
+                        <th>Modified Time</th>
+                        <th>Status</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for scraper in scrapers %}
+                    <tr>
+                        <td>{{ scraper.obj.show_name }}</td>
+                        <td>{{ scraper.obj.ws_url }}</td>
+                        <td>{{ scraper.obj.date_created }}</td>
+                        <td>{{ scraper.obj.date_modified }}</td>
+                        <td>{{ scraper.status }}</td>
+                        <td>{{ scraper.start_time }}</td>
+                        <td>{{ scraper.end_time }}</td>
+                        <td>
+                            {% if scraper.status != "Running" %}
+                                <a href="{% url 'start_spider' %}?id={{ scraper.obj.pk }}">Start</a>
+                            {% else %}
+                                <a href="{% url 'stop_spider' %}?id={{ scraper.obj.pk }}">Stop</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
