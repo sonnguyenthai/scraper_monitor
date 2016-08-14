@@ -187,8 +187,8 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Mongodb settings
-MONGO_URI = "mongodb://localhost:27017/"
-# MONGO_URI = "mongodb://delcampe:0t74WmXWk3kUx&@vps275070.ovh.net:27017/"
+# MONGO_URI = "mongodb://localhost:27017/"
+MONGO_URI = "mongodb://delcampe:SOh3TbYhxuLiW8ypJPxmt1oOfL@vps275070.ovh.net:27017/?authSource=delcampe_items"
 # "mongodb://delcampe:0t74WmXWk@z@vps275070.ovh.net:27017/"
 MONGO_DATABASE = "delcampe_items"
 MONGO_POSTCARDS_COLLECTION = "delcampe_postcards"

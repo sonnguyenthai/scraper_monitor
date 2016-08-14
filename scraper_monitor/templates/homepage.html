@@ -27,19 +27,19 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-6"><strong>MongoURI:</strong> {{ mongo_url }}</div>
+                <div class="col-md-12"><strong>MongoURI:</strong> {{ mongo_url }}</div>
             </div>
             <div class="row">
-                <div class="col-md-6"><strong>Mongo DB:</strong> {{ mongo_db }}</div>
+                <div class="col-md-12"><strong>Mongo DB:</strong> {{ mongo_db }}</div>
             </div>
             <div class="row">
-                <div class="col-md-6"><strong>Mongo DB Collection:</strong> {{ mongo_col }}</div>
+                <div class="col-md-12"><strong>Mongo DB Collection:</strong> {{ mongo_col }}</div>
             </div>
             <div class="row">
-                <div class="col-md-6"><strong>Items number:</strong> {{ items_number }}</div>
+                <div class="col-md-12"><strong>Items number:</strong> {{ items_number }}</div>
             </div>
             <div class="row">
-                <div class="col-md-6"><strong>Images number:</strong> {{ images_number }}</div>
+                <div class="col-md-12"><strong>Images number:</strong> {{ images_number }}</div>
             </div>
             <br />
             <table class="table table-striped">
@@ -66,7 +66,7 @@
                         <td>{{ scraper.start_time }}</td>
                         <td>{{ scraper.end_time }}</td>
                         <td>
-                            {% if scraper.status != "Running" %}
+                            {% if scraper.status != "Running" and scraper.status != "Pending" %}
                                 <a href="{% url 'start_spider' %}?id={{ scraper.obj.pk }}">Start</a>
                             {% else %}
                                 <a href="{% url 'stop_spider' %}?id={{ scraper.obj.pk }}">Stop</a>
