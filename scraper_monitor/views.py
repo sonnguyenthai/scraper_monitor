@@ -24,6 +24,9 @@ def monitor_scraper(request):
         s_dict['obj'] = s
         s_dict.update(stats)
         scrapers.append(s_dict)
+        if stats.has_key('job_id'):
+            s.job_id = stats['job_id']
+            s.save()
 
     context = {
         'scrapers': scrapers,

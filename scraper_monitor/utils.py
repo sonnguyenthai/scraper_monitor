@@ -38,6 +38,7 @@ def verify_spider(spider_name, url, project_name):
                         result['status'] = "Running"
                         result['code'] = True
                         result['start_time'] = i['start_time']
+                        result['job_id'] = i['id']
                         # result['end_time'] = i['end_time']
                         return result
                 for i in data.get("pending"):
